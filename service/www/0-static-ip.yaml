@@ -1,0 +1,23 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: www
+---
+apiVersion: compute.cnrm.cloud.google.com/v1alpha3
+kind: ComputeAddress
+metadata:
+  name: taff-io-static-address
+spec:
+  location: global
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: taff-io-ssl
+  namespace: www
+spec:
+  domains:
+    - taff.io
+
+

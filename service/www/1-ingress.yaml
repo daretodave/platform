@@ -1,0 +1,28 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: taff-io-ingress
+  namespace: www
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: taff-io-static-address
+    networking.gke.io/managed-certificates: taff-io-ssl
+spec:
+  backend:
+    serviceName: taff-io-service
+    servicePort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taff-io-service
+  namespace: www
+spec:
+  type: NodePort
+  selector:
+    run: taff-io
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---

@@ -8,6 +8,12 @@ provider "google" {
   zone = var.zone
 }
 
+provider "google-beta" {
+  project = var.project
+  region  = var.region
+  zone = var.zone
+}
+
 provider "kubernetes" {
 }
 
@@ -50,3 +56,6 @@ module "platform" {
 resource "google_compute_address" "ip_address" {
   name = "${var.prefix}-static-ip"
 }
+
+
+

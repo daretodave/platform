@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taff-io
+  namespace: www
+  labels:
+    app: taff-io
+spec:
+  selector:
+    matchLabels:
+      run: taff-io
+  template:
+    metadata:
+      labels:
+        run: taff-io
+    spec:
+      containers:
+        - name: taff-io
+          image: gcr.io/google-samples/hello-app:1.0
+          ports:
+            - containerPort: 8080

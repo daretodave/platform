@@ -10,3 +10,9 @@ variable "zone" {
 variable "prefix" {
   default = "platform"
 }
+variable "platform-domain" {
+  default = "platform.taff.io"
+}
+variable "platform-domain-zone" {
+  default = "taff-io"
+}

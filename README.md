@@ -1,5 +1,10 @@
+# platform
+follow steps in order
+# 00
+- Enable [CNRM](https://console.developers.google.com/apis/library/cloudresourcemanager.googleapis.com)
+- Enable [GCE](https://console.developers.google.com/apis/library/compute.googleapis.com)
+- Enable [GKE](https://console.developers.google.com/apis/library/container.googleapis.com)
 
-## terraform
 
 From the /terraform folder -
 
@@ -16,6 +21,10 @@ terraform init \
     -backend-config="credentials=$GOOGLE_CLOUD_KEYFILE_JSON"
 ```
 
+```bash
+terraform apply
+```
+
 ### powershell
 
 ```powershell
@@ -30,4 +39,17 @@ $GOOGLE_CLOUD_TF_BUCKET="..."
 terraform init `
     -backend-config="bucket=$GOOGLE_CLOUD_TF_BUCKET" `
     -backend-config="credentials=$GOOGLE_CLOUD_KEYFILE_JSON"
+```
+
+```powershell
+terraform apply
+```
+
+
+----
+
+# 01
+```bash
+kubectl apply -f service/cnrm/
+kubectl apply -f service/www/
 ```
