@@ -62,11 +62,11 @@ module "service_ingress" {
   name="service"
   namespace="service"
 }
-//
-//module "cert-managaer" {
-//  source = "./modules/gcp/cert-manager"
-//
-//  acme_email = var.acme_email
-//  acme_url = var.acme_url
-//}
+
+module "cert-managaer" {
+  source = "./modules/gcp/cert-manager"
+
+  acme_email = var.acme_email
+  acme_url = var.acme_url
+}
 

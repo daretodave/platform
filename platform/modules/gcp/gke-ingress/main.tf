@@ -4,9 +4,9 @@ resource "google_compute_address" "ingress_address" {
 }
 
 resource "helm_release" "nginx-ingress" {
-  chart = "stable/nginx-ingress"
-  name  = var.name
   namespace = var.namespace
+  name  = var.name
+  chart = "stable/nginx-ingress"
 
   set {
     name  = "controller.service.loadBalancerIP"
