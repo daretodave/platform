@@ -59,14 +59,45 @@ module "vpc_network" {
 module "service_ingress" {
   source = "./modules/gcp/gke-ingress"
   prefix = var.prefix
-  name="service"
-  namespace="service"
+  name = "service"
+  namespace = "service"
 }
 
-module "cert-managaer" {
+module "cert_manager" {
   source = "./modules/gcp/cert-manager"
 
+  project = var.project
+
+  dns_service_account_name = "${var.prefix}-dns-admin"
+
   acme_email = var.acme_email
-  acme_url = var.acme_url
+  acme_url = var.acme_server_url
+
+  credential_bucket = var.credential_bucket
+  credential_bucket_location = var.credential_bucket_location
 }
 
+module "gke-ingress-domain" {
+  source = "./modules/gcp/gke-ingress-domain"
+
+  domain = "service.taff.io"
+  domain_zone = "taff-io"
+
+  name = "service"
+
+  project = var.project
+
+  acme_email = var.acme_email
+
+  dns_challenge_service_account_auth_file = module.cert_manager.service_account_auth_file
+  dns_challenge_service_account = module.cert_manager.service_account
+
+  dns_challenge_polling_interval = 2000
+  dns_challenge_propagation_timeout = 6000
+  dns_challenge_ttl = 120
+
+}
+
+output "authfile" {
+  value = module.cert_manager.service_account_auth_file
+}

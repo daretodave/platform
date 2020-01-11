@@ -9,7 +9,7 @@ variable "acme_email" {
   type = string
 }
 
-variable "acme_url" {
+variable "acme_server_url" {
   description = "the endpoint used to call acme service"
   type = string
   default = "https://acme-staging-v02.api.letsencrypt.org/directory"
@@ -78,4 +78,10 @@ variable "helm_namespace" {
 }
 variable "helm_sa_name" {
   default = "tiller"
+}
+variable "credential_bucket_location" {
+  default = "us-east4"
+}
+variable "credential_bucket" {
+  default = "taff-platform-store"
 }

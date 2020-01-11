@@ -1,12 +1,21 @@
 provider "google" {
   project = var.project
   region  = var.region
+  version = "3.3.0"
 }
 
 provider "google-beta" {
   project = var.project
   region  = var.region
+  version = "3.3.0"
 
+}
+provider "acme" {
+  server_url = var.acme_server_url
+  version = "1.5.0"
+}
+provider "tls" {
+  version = "2.0.0"
 }
 
 provider kubernetes {}
@@ -41,3 +50,6 @@ resource "kubernetes_cluster_role_binding" "helm_role_binding" {
     namespace = var.helm_namespace
   }
 }
+
+
+
