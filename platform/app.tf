@@ -2,6 +2,14 @@ resource "google_compute_global_address" "ingress_ip" {
   name = "platform-service-ip"
 }
 
+module "service-domain" {
+  source = "./modules/gcp/gke-ingress-domain"
+  domain = "*.service.taff.io"
+  name = "service-mesh"
+  project = var.project
+  acme_email = var.acme_email
+}
+
 resource "kubernetes_service" "app_svc" {
   metadata {
     namespace = "default"
@@ -42,7 +50,7 @@ resource "kubernetes_ingress" "default" {
       hosts = [
         "ping.service.taff.io"
       ]
-      secret_name = "platform-service-ingress-tls"
+      secret_name = module.service-domain.acme_certificate
     }
     rule {
       host = "ping.service.taff.io"

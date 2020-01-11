@@ -81,20 +81,10 @@ module "gke-ingress-domain" {
   source = "./modules/gcp/gke-ingress-domain"
 
   domain = "service.taff.io"
-  domain_zone = "taff-io"
-
   name = "service"
-
   project = var.project
-
   acme_email = var.acme_email
 
-  dns_challenge_service_account_auth_file = module.cert_manager.service_account_auth_file
-  dns_challenge_service_account = module.cert_manager.service_account
-
-  dns_challenge_polling_interval = 2000
-  dns_challenge_propagation_timeout = 6000
-  dns_challenge_ttl = 120
 
 }
 

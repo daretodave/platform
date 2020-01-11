@@ -8,22 +8,12 @@ resource "acme_registration" "reg" {
   email_address = var.acme_email
 }
 
-output "acme_registration" {
-  value = acme_registration.reg
+output "acme_certificate" {
+  value = acme_certificate.ingress_cert.id
 }
 
 resource "google_compute_global_address" "ingress_ip" {
   name = "${var.name}-address"
-}
-
-resource "google_dns_record_set" "dns" {
-  name = "${var.domain}."
-  type = "A"
-  ttl = 300
-  managed_zone = var.domain_zone
-
-  rrdatas = [
-    google_compute_global_address.ingress_ip.address]
 }
 
 resource "acme_certificate" "ingress_cert" {
